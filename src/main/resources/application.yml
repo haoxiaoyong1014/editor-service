@@ -1,0 +1,8 @@
+server:
+  port: 2020
+word:
+  to:
+    html:
+      path: /tmp/docker/doc/
+
+
