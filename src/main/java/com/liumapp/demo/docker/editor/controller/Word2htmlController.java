@@ -68,7 +68,7 @@ public class Word2htmlController {
             // doc
             HWPFDocument wordDocument = new HWPFDocument(input);
             wordToHtmlConverter.processDocument(wordDocument);
-            //处理图片，会在同目录下生成 image/media/ 路径并保存图片
+            //处理图片，会在同目录下生成并保存图片
             List pics = wordDocument.getPicturesTable().getAllPictures();
             if (pics != null) {
                 for (int i = 0; i < pics.size(); i++) {
@@ -109,7 +109,7 @@ public class Word2htmlController {
             InputStream in = new FileInputStream(file);
             XWPFDocument document = new XWPFDocument(in);
 
-            // 2) 实例化XHTML内容(这里将会把图片等文件放到生成的"word/media"目录)
+            // 2) 实例化XHTML内容(这里将会把图片等文件放到同级目录下)
             File imageFolderFile = new File(path);
             XHTMLOptions options = XHTMLOptions.create().URIResolver(
                     new FileURIResolver(imageFolderFile));
@@ -117,7 +117,7 @@ public class Word2htmlController {
             options.setIgnoreStylesIfUnused(false);
             options.setFragment(true);
 
-            // 3) 将XWPFDocument转成XHTML并生成文件
+            // 3) 将XWPFDocument转成XHTML并生成文件  --> 我此时不想让它生成文件,所以我注释掉了,按需求定
             /*OutputStream out = new FileOutputStream(new File(
                     path, "result.html"));
             XHTMLConverter.getInstance().convert(document, out, null);*/
@@ -148,6 +148,7 @@ public class Word2htmlController {
         serializer.transform(domSource, streamResult);
         outStream.close();
         String content = new String(outStream.toByteArray());
+        //我此时不想让它生成文件,所以我注释掉了,按需求定
         /*FileUtils.writeStringToFile(new File(path, "interface.html"), content,
                 "utf-8");*/
         return content;

@@ -35,16 +35,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>fastjson</artifactId>
-      <version>1.2.15</version>
-    </dependency>
-    <!--<dependency>
-      <groupId>com.liumapp.convert.html</groupId>
-      <artifactId>convert-html-to-pdf</artifactId>
-      <version>v1.0.0</version>
-    </dependency>-->
-    <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi</artifactId>
       <version>3.12</version>
@@ -71,14 +61,14 @@
         <version>2.6</version>
       </dependency>
     <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>fastjson</artifactId>
-      <version>1.2.15</version>
-    </dependency>
-    <dependency>
       <groupId>com.aspose.words</groupId>
       <artifactId>aspose-words</artifactId>
       <version>15.8.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.15</version>
     </dependency>
   </dependencies>
 

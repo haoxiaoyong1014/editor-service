@@ -1,54 +1,66 @@
-# SpringBootMavenArchetype
-this is a maven archetype , which will built a java program based on springboot
+### editor-service
 
-### how to use it 
+项目需求: 富文本编辑器要支持导入word模板, 另外样式不能改变
 
-* get the source code 
+富文本编辑器名称: tinymce 
 
-* generate generated-sources folder , by the following code:
+结合前端 vue.js (<a href="https://github.com/haoxiaoyong1014/common-friends">editor-ui</a>)
 
-```
-	
-	mvn archetype:create-from-project
+**最终展示效果:** 
 
-``` 
+![image](https://github.com/haoxiaoyong1014/editor-service/raw/master/src/main/java/com/liumapp/demo/docker/editor/image/editor.gif)
 
-* go to target/generated-sources/archetype , and make archetype installed to your local maven storage
+**整体思路:**
 
-```
+1,在编辑器原来的基础上增加上传模板按钮
 
-	mvn install
+2, 前端上传 word 模板
 
+3, 服务端接收将 word 转换为html 返回前端
 
-```
+4, 前端拿到我返回的值,将其放到富文本编辑器中
 
-* open the target/generated-sources/archetype/pom.xml , it should like this :
+5, 前端点击submit,服务端将其转换成 pdf文件
 
-```
-
-  <groupId>com.liumapp.SpringBootMavenArchetype</groupId>
-  <artifactId>SpringBootMavenArchetype-archetype</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>maven-archetype</packaging>
+**所需依赖:** 
 
 ```
-
-* build your new maven project anywhere you like :
-
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>3.12</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-scratchpad</artifactId>
+      <version>3.12</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>fr.opensagres.xdocreport</groupId>
+      <artifactId>fr.opensagres.xdocreport.document</artifactId>
+      <version>1.0.5</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>fr.opensagres.xdocreport</groupId>
+      <artifactId>org.apache.poi.xwpf.converter.xhtml</artifactId>
+      <version>1.0.5</version>
+    </dependency>
+    
+      <!-- https://mvnrepository.com/artifact/org.apache.commons.io/commonsIO -->
+      <dependency>
+        <groupId>org.apache.commons.io</groupId>
+        <artifactId>commonsIO</artifactId>
+        <version>2.6</version>
+      </dependency>
+      
+    <dependency>
+      <groupId>com.aspose.words</groupId>
+      <artifactId>aspose-words</artifactId>
+      <version>15.8.0</version>
+    </dependency>
 ```
-mvn archetype:generate -DarchetypeGroupId=com.liumapp.SpringBootMavenArchetype -DarchetypeArtifactId=SpringBootMavenArchetype-archetype -DarchetypeVersion=1.0-SNAPSHOT
 
-```
-
-   or you can just enter :
- 
-    mvn archetype:generate
- 
-   and then choice com.liumapp.SpringBootMavenArchetype like : 
-   
-   ![01](https://github.com/liumapp/imageFolder/blob/master/shell/archetype01.jpg)
-
-* enjoy your coding with SpringBoot
-
-
-
+**其中 commonsIO 这个依赖不知道为什么下载不下来,我将 jar 放到了我的私服上,在pom.xml 中有体现,这里不做详细说明**
