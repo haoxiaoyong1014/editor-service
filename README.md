@@ -64,3 +64,15 @@
 ```
 
 **其中 commonsIO 这个依赖不知道为什么下载不下来,我将 jar 放到了我的私服上,在pom.xml 中有体现,这里不做详细说明**
+
+**前端项目使用方式**
+
+git clone https://github.com/haoxiaoyong1014/editor-ui.git
+
+进入项目执行:
+
+npm install
+
+npm run dev
+
+前提: 需要安装 npm 
