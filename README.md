@@ -4,7 +4,7 @@
 
 富文本编辑器名称: tinymce 
 
-结合前端 vue.js (<a href="https://github.com/haoxiaoyong1014/common-friends">editor-ui</a>)
+结合前端 vue.js (<a href="https://github.com/haoxiaoyong1014/editor-ui">editor-ui</a>)
 
 **最终展示效果:** 
 
@@ -18,7 +18,7 @@
 
 3, 服务端接收将 word 转换为html 返回前端
 
-4, 前端拿到我返回的值,将其放到富文本编辑器中
+4, 前端拿到服务端返回的值,将其放到富文本编辑器中
 
 5, 前端点击submit,服务端将其转换成 pdf文件
 
