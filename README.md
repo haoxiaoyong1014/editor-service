@@ -76,3 +76,5 @@ npm install
 npm run dev
 
 前提: 需要安装 npm 
+
+**更详细内容见博客:** https://blog.csdn.net/haoxiaoyong1014/article/details/82683428
