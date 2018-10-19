@@ -4,7 +4,7 @@
 
 富文本编辑器名称: tinymce 
 
-结合前端 vue.js (<a href="https://github.com/haoxiaoyong1014/common-friends">editor-ui</a>)
+结合前端 vue.js (<a href="https://github.com/haoxiaoyong1014/editor-ui">editor-ui</a>)
 
 **最终展示效果:** 
 
@@ -18,7 +18,7 @@
 
 3, 服务端接收将 word 转换为html 返回前端
 
-4, 前端拿到我返回的值,将其放到富文本编辑器中
+4, 前端拿到服务端返回的值,将其放到富文本编辑器中
 
 5, 前端点击submit,服务端将其转换成 pdf文件
 
@@ -77,6 +77,7 @@ npm run dev
 
 前提: 需要安装 npm 
 
+
 #### 放到项目中遇到的问题修复
 
 * 问题描述1: 
@@ -127,3 +128,6 @@ editor.on('keyup', function (e) {
 后端在返回给前端html 的时候,在返回的内容上加上
 
 `respInfo.setContent("<div style=\"width: 595.0pt; margin: -72.0pt -90.0pt -72.0pt -90.0pt !important;\">"+content+"</div>")`
+
+**更详细内容见博客:** https://blog.csdn.net/haoxiaoyong1014/article/details/82683428
+
