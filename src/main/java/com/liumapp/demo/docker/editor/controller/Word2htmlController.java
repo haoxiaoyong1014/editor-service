@@ -127,7 +127,7 @@ public class Word2htmlController {
             baos.close();
             respInfo.setMessage("success");
             respInfo.setStatus(InfoCode.SUCCESS);
-            respInfo.setContent(content);
+            respInfo.setContent("<div style=\"width: 595.0pt; margin: -72.0pt -90.0pt -72.0pt -90.0pt !important;\">"+content+"</div>");
             return JSON.toJSONString(respInfo);
         } else {
             System.out.println("Enter only MS Office 2007+ files");

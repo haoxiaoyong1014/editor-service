@@ -19,8 +19,7 @@ public class IndexController {
     @RequestMapping(value = "pdf")
     public String getContent (@RequestBody Editor editor) {
         Html2PDF html2PDF = new Html2PDF();
-        html2PDF.html2pdf("./test.pdf", editor.getContent());
+        html2PDF.html2pdf("/tmp/docker/doc/test2.pdf", editor.getContent());
         return JSON.toJSONString("success");
     }
-
 }
