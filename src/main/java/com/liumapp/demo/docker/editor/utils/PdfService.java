@@ -22,23 +22,7 @@ import java.io.InputStream;
 @Slf4j
 public class PdfService {
     public static final String RESOURCE_PREFIX_INDEX = "/tmp";
-    public static final String FONT_NAME = "font/msyh.ttf";
-    private static final String FONT_CLASS_PATH = "font/msyh.ttf";
 
-    public void copyFont(String dirStr) {
-        try {
-            InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(FONT_CLASS_PATH);
-            File dir = new File(dirStr);
-            FileUtils.forceMkdir(dir);
-            FileOutputStream fout = new FileOutputStream(dirStr + "font/msyh.ttf");
-            if (inputStream != null && fout != null) {
-                org.apache.commons.io.IOUtils.copy(inputStream, fout);
-            }
-        } catch (Exception e) {
-            log.error("failed to copy font: ", e);
-            e.printStackTrace();
-        }
-    }
 
     /**
      *
