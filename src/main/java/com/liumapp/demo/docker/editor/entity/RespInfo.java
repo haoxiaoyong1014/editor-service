@@ -1,12 +1,14 @@
 
 package com.liumapp.demo.docker.editor.entity;
 
+import lombok.Data;
+
 /**
  * Created by haoxy on 2018/9/11.
  * E-mail:hxyHelloWorld@163.com
  * github:https://github.com/haoxiaoyong1014
  */
-
+@Data
 public class RespInfo {
     private Integer status;
 
@@ -27,30 +29,6 @@ public class RespInfo {
     public RespInfo(Integer status, Object content) {
         this.status = status;
         this.content = content;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Object getContent() {
-        return content;
-    }
-
-    public void setContent(Object content) {
-        this.content = content;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
 

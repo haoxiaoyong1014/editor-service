@@ -54,7 +54,6 @@
       <artifactId>org.apache.poi.xwpf.converter.xhtml</artifactId>
       <version>1.0.5</version>
     </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.commons.io/commonsIO -->
       <dependency>
         <groupId>org.apache.commons.io</groupId>
         <artifactId>commonsIO</artifactId>
@@ -71,44 +70,40 @@
       <version>1.2.15</version>
     </dependency>
 
+    <!--以下是新增itext7html转pdf 更新于 2019-06-04 -->
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itext7-core</artifactId>
+      <version>7.1.0</version>
+      <type>pom</type>
+    </dependency>
+
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>html2pdf</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+
+    <!--这个注解跟上面的commonsIO重复,所以注释掉了这个,如果上面的commonsIO这个注解下载不下来用这个也可以-->
+    <!--<dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.3.2</version>
+    </dependency>-->
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
   </dependencies>
 
-  <!--<repositories>
+  <repositories>
     <repository>
       <id>test</id>
       <url>http://www.liumapp.com:8081/repository/liumapp/</url>
     </repository>
-  </repositories>-->
-  <repositories>
-    <!--<repository>
-        <id>spring-milestone</id>
-        <url>http://repo.spring.io/libs-release</url>
-    </repository>-->
-    <repository>
-      <id>nexus</id>
-      <name>Nexus Repository</name>
-      <url>http://118.190.40.58:8081/repository/maven-public/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
   </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>nexus</id>
-      <name>Nexus Plugin Repository</name>
-      <url>http://118.190.40.58:8081/repository/maven-public/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories>
+
 
   <build>
     <plugins>

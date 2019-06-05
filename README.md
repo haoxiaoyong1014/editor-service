@@ -131,3 +131,123 @@ editor.on('keyup', function (e) {
 
 **更详细内容见博客:** https://blog.csdn.net/haoxiaoyong1014/article/details/82683428
 
+
+2019 06 04 更新:
+
+新增: 利用itext7将html转pdf,
+
+添加依赖:
+
+```xml
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itext7-core</artifactId>
+      <version>7.1.0</version>
+      <type>pom</type>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>html2pdf</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.3.2</version>
+    </dependency> 
+```
+
+**使用方式:**
+1,添加字体
+
+将resources/font中的`msyh.ttf`字体加入到存放转换后pdf文件的文件夹下;和pdf文件同级即可;
+
+例如:我转换后的pdf文件放在了 `/tmp/pdf/`下,所以我的字体文件也要放在这个文件夹下;
+
+
+在`PdfService.java`文件中有两个方法:
+
+1, 根据html文件进行转换
+
+```java
+/**
+     *
+     * @param pdfFileName:文件名
+     * @param htmlInputStream:html文件流,这里我没有使用文件流的形式,因为我们的业务是前端直接传来一个 html文件内容;
+     *                        如果你要使用这个方法需要再ItextHtmlToPdfController中加入
+     *                        FileInputStream inputStream = new FileInputStream("/tmp/5.html");
+     * @param resourcePrefix: 文件存储的地方
+     */
+    public void createPdfFromHtml(String pdfFileName, InputStream htmlInputStream, String resourcePrefix) {
+        PdfDocument pdfDoc = null;
+        try {
+            FileOutputStream outputStream = new FileOutputStream(resourcePrefix + pdfFileName);
+            WriterProperties writerProperties = new WriterProperties();
+            writerProperties.addXmpMetadata();
+            PdfWriter pdfWriter = new PdfWriter(outputStream, writerProperties);
+            pdfDoc = createPdfDoc(pdfWriter);
+            ConverterProperties props = createConverterProperties(resourcePrefix);
+            HtmlConverter.convertToPdf(htmlInputStream, pdfDoc, props);
+        } catch (Exception e) {
+            log.error("failed to create pdf from html exception: ", e);
+            e.printStackTrace();
+        } finally {
+            pdfDoc.close();
+        }
+
+    }
+```
+在 ItextHtmlToPdfController中要这么写:
+
+```java
+        PdfService pdfService = new PdfService();
+        String timeFile = System.currentTimeMillis() + "";
+        String tempFile = PdfService.RESOURCE_PREFIX_INDEX + "/" + "pdf" + "/";
+        createDirs(tempFile);
+        FileInputStream inputStream = new FileInputStream("/tmp/5.html");
+        File pdfFile = createFlawPdfFile(tempFile, timeFile);
+        pdfService.createPdfFromHtml(pdfFile.getName(), inputStream, tempFile);
+```
+
+但是呢我们的项目需求不是这样的;我们项目中的需求是前端直接传 html 文件内容,所以用了下面这个方法;
+
+```java
+ /**
+     *
+     * @param pdfFileName
+     * @param htmlString : html文件内容
+     * @param resourcePrefix
+     */
+    public void createPdfFromHtml(String pdfFileName, String htmlString, String resourcePrefix) {
+        PdfDocument pdfDoc = null;
+        try {
+            FileOutputStream outputStream = new FileOutputStream(resourcePrefix + pdfFileName);
+            WriterProperties writerProperties = new WriterProperties();
+            writerProperties.addXmpMetadata();
+            PdfWriter pdfWriter = new PdfWriter(outputStream, writerProperties);
+            pdfDoc = createPdfDoc(pdfWriter);
+            ConverterProperties props = createConverterProperties(resourcePrefix);
+            HtmlConverter.convertToPdf(htmlString, pdfDoc, props);
+        } catch (Exception e) {
+            log.error("failed to create pdf from html exception: ", e);
+            e.printStackTrace();
+        } finally {
+            pdfDoc.close();
+        }
+
+```
+
+这样的话当然你的 ItextHtmlToPdfController中要这么写:
+
+```java
+        PdfService pdfService = new PdfService();
+        String timeFile = System.currentTimeMillis() + "";
+        String tempFile = PdfService.RESOURCE_PREFIX_INDEX + "/" + "pdf" + "/";
+        createDirs(tempFile);
+        File pdfFile = createFlawPdfFile(tempFile, timeFile);
+        pdfService.createPdfFromHtml(pdfFile.getName(), htmlContent, tempFile);
+```
+
+
