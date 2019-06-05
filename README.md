@@ -250,4 +250,18 @@ editor.on('keyup', function (e) {
         pdfService.createPdfFromHtml(pdfFile.getName(), htmlContent, tempFile);
 ```
 
+结合前端,如果需要用 itext7来转 pdf,前端的路径只需要改为 `/itext/html/pdf`即可;
 
+```js
+handleSubmit(name) {
+        this.$refs[name].validate((valid) => {
+          if (valid) {
+            util.post('/itext/html/pdf', this.editorModel).then(res => {
+              this.$Message.success('Success!');
+            });
+          } else {
+            this.$Message.error('Fail!');
+          }
+        });
+      }
+```
