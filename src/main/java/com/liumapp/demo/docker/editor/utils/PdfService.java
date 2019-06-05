@@ -21,11 +21,10 @@ import java.io.InputStream;
  */
 @Slf4j
 public class PdfService {
+
     public static final String RESOURCE_PREFIX_INDEX = "/tmp";
 
-
     /**
-     *
      * @param pdfFileName:文件名
      * @param htmlInputStream:html文件流,这里我没有使用文件流的形式,因为我们的业务是前端直接传来一个 html文件内容;
      *                        如果你要使用这个方法需要再ItextHtmlToPdfController中加入

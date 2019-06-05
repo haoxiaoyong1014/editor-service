@@ -20,10 +20,9 @@ public class ItextHtmlToPdfController {
     @RequestMapping(value = "pdf")
     public String converterTask(@RequestBody Editor editor) {
         PdfService pdfService = new PdfService();
-        String timeFile = System.currentTimeMillis() + "";
         String tempFile = PdfService.RESOURCE_PREFIX_INDEX + "/" + "pdf" + "/";
         createDirs(tempFile);
-        File pdfFile = createFlawPdfFile(tempFile, timeFile);
+        File pdfFile = createFlawPdfFile(tempFile, System.currentTimeMillis() + "itext");
         long l1 = System.currentTimeMillis();
         pdfService.createPdfFromHtml(pdfFile.getName(), editor.getContent(), tempFile);
         long l2 = System.currentTimeMillis();
