@@ -2,6 +2,7 @@ package com.liumapp.demo.docker.editor.controller;
 
 import java.io.*;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
@@ -12,6 +13,8 @@ import com.alibaba.fastjson.JSON;
 import com.liumapp.demo.docker.editor.entity.InfoCode;
 import com.liumapp.demo.docker.editor.entity.RespInfo;
 import com.liumapp.demo.docker.editor.utils.SaveFile;
+import org.apache.poi.hssf.record.Margin;
+import org.apache.poi.hssf.record.TopMarginRecord;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.converter.PicturesManager;
 import org.apache.poi.hwpf.converter.WordToHtmlConverter;
@@ -116,18 +119,24 @@ public class Word2htmlController {
             options.setExtractor(new FileImageExtractor(imageFolderFile));
             options.setIgnoreStylesIfUnused(false);
             options.setFragment(true);
+         //   Margin margin = new TopMarginRecord();
 
             // 3) 将XWPFDocument转成XHTML并生成文件  --> 我此时不想让它生成文件,所以我注释掉了,按需求定
-            /*OutputStream out = new FileOutputStream(new File(
+          /*  OutputStream out = new FileOutputStream(new File(
                     path, "result.html"));
             XHTMLConverter.getInstance().convert(document, out, null);*/
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             XHTMLConverter.getInstance().convert(document, baos, options);
             String content = baos.toString();
+            //content = Pattern.compile("width:\\d*[.]\\d*pt;").matcher(content).replaceAll("592.0pt;");595.0pt
+            content = Pattern.compile("width:595.0pt;").matcher(content).replaceAll("");
+            content = Pattern.compile("margin-left:\\d*[.]\\d*pt;").matcher(content).replaceAll("");
+            content = Pattern.compile("margin-right:\\d*[.]\\d*pt;").matcher(content).replaceAll("");
             baos.close();
             respInfo.setMessage("success");
             respInfo.setStatus(InfoCode.SUCCESS);
             //respInfo.setContent("<div style=\"width: 595.0pt; margin: -72.0pt -90.0pt -72.0pt -90.0pt !important;\">"+content+"</div>");
+            //respInfo.setContent("<div style=\"width:595.0pt; margin: 0.0pt  !important;\">"+content+"</div>");
             respInfo.setContent(content);
             return JSON.toJSONString(respInfo);
         } else {
