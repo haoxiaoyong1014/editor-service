@@ -280,7 +280,7 @@ content = Pattern.compile("margin-right:\\d*[.]\\d*pt;").matcher(content).replac
 
 生成这html中会是下面这个样子: `<div style="margin-bottom: 72.0pt; margin-top: 72.0pt;">`
 
-在进行转换成 pdf 文件就没有问题了,转换 pdf 时用的 itext7;
+在进行转换成 pdf 文件就没有问题了,转换 pdf 时用的 itext7; 详细内容看代码;
 
 
 
