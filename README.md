@@ -267,3 +267,21 @@ handleSubmit(name) {
 ```
 之所以用itext7,是因为他对表格的处理很友好;
 
+2019/06/05更新:
+
+在使用poi进行docx(word2007)转换成html时,会自动生成一个div, `<div style="width: 595.0pt; margin: 72.0pt 90.0pt 72.0pt 90.0pt;">`,但是我不需要,因为有
+了这个 div 之后,再转换成 pdf 会出问题;所以我要去掉,加入下面这段话即可:
+
+```java
+content = Pattern.compile("width:595.0pt;").matcher(content).replaceAll("");
+content = Pattern.compile("margin-left:\\d*[.]\\d*pt;").matcher(content).replaceAll("");
+content = Pattern.compile("margin-right:\\d*[.]\\d*pt;").matcher(content).replaceAll("");
+```
+
+生成这html中会是下面这个样子: `<div style="margin-bottom: 72.0pt; margin-top: 72.0pt;">`
+
+在进行转换成 pdf 文件就没有问题了,转换 pdf 时用的 itext7;
+
+
+
+
