@@ -273,7 +273,8 @@ handleSubmit(name) {
 了这个 div 之后,再转换成 pdf 会出问题;所以我要去掉,加入下面这段话即可:
 
 ```java
-content = Pattern.compile("width:595.0pt;").matcher(content).replaceAll("");
+content = Pattern.compile("width:\\d*[.]\\d*pt;").matcher(content).replaceAll("592.0pt;");
+//content = Pattern.compile("width:595.0pt;").matcher(content).replaceAll("");
 content = Pattern.compile("margin-left:\\d*[.]\\d*pt;").matcher(content).replaceAll("");
 content = Pattern.compile("margin-right:\\d*[.]\\d*pt;").matcher(content).replaceAll("");
 ```

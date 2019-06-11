@@ -26,6 +26,7 @@ import org.apache.poi.xwpf.converter.core.FileURIResolver;
 import org.apache.poi.xwpf.converter.xhtml.XHTMLConverter;
 import org.apache.poi.xwpf.converter.xhtml.XHTMLOptions;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFNumbering;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -111,7 +112,7 @@ public class Word2htmlController {
             // 1) 加载XWPFDocument及文件
             InputStream in = new FileInputStream(file);
             XWPFDocument document = new XWPFDocument(in);
-
+             document.createNumbering();
             // 2) 实例化XHTML内容(这里将会把图片等文件放到同级目录下)
             File imageFolderFile = new File(path);
             XHTMLOptions options = XHTMLOptions.create().URIResolver(
@@ -119,8 +120,6 @@ public class Word2htmlController {
             options.setExtractor(new FileImageExtractor(imageFolderFile));
             options.setIgnoreStylesIfUnused(false);
             options.setFragment(true);
-         //   Margin margin = new TopMarginRecord();
-
             // 3) 将XWPFDocument转成XHTML并生成文件  --> 我此时不想让它生成文件,所以我注释掉了,按需求定
           /*  OutputStream out = new FileOutputStream(new File(
                     path, "result.html"));
@@ -129,20 +128,25 @@ public class Word2htmlController {
             XHTMLConverter.getInstance().convert(document, baos, options);
             String content = baos.toString();
             //content = Pattern.compile("width:\\d*[.]\\d*pt;").matcher(content).replaceAll("592.0pt;");595.0pt
-            content = Pattern.compile("width:595.0pt;").matcher(content).replaceAll("");
-            content = Pattern.compile("margin-left:\\d*[.]\\d*pt;").matcher(content).replaceAll("");
-            content = Pattern.compile("margin-right:\\d*[.]\\d*pt;").matcher(content).replaceAll("");
+            content = compile(content);
             baos.close();
             respInfo.setMessage("success");
             respInfo.setStatus(InfoCode.SUCCESS);
             //respInfo.setContent("<div style=\"width: 595.0pt; margin: -72.0pt -90.0pt -72.0pt -90.0pt !important;\">"+content+"</div>");
-            //respInfo.setContent("<div style=\"width:595.0pt; margin: 0.0pt  !important;\">"+content+"</div>");
             respInfo.setContent(content);
             return JSON.toJSONString(respInfo);
         } else {
             System.out.println("Enter only MS Office 2007+ files");
         }
         return null;
+    }
+
+    private String compile(String content) {
+        content = Pattern.compile("width:595.0pt;").matcher(content).replaceAll("");
+        content = Pattern.compile("width:593.0pt;").matcher(content).replaceAll("");
+        content = Pattern.compile("margin-left:\\d*[.]\\d*pt;").matcher(content).replaceAll("");
+        content = Pattern.compile("margin-right:\\d*[.]\\d*pt;").matcher(content).replaceAll("");
+        return content;
     }
 
     private String conversion(WordToHtmlConverter wordToHtmlConverter) throws TransformerException, IOException {

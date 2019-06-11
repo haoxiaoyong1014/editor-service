@@ -22,7 +22,7 @@ public class ItextHtmlToPdfController {
         PdfService pdfService = new PdfService();
         String tempFile = PdfService.RESOURCE_PREFIX_INDEX + "/" + "pdf" + "/";
         createDirs(tempFile);
-        File pdfFile = createFlawPdfFile(tempFile, System.currentTimeMillis() + "itext");
+        File pdfFile = createFlawPdfFile(tempFile, System.currentTimeMillis() + "-itext");
         long l1 = System.currentTimeMillis();
         pdfService.createPdfFromHtml(pdfFile.getName(), editor.getContent(), tempFile);
         long l2 = System.currentTimeMillis();
