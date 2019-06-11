@@ -281,6 +281,10 @@ content = Pattern.compile("margin-right:\\d*[.]\\d*pt;").matcher(content).replac
 
 生成这html中会是下面这个样子: `<div style="margin-bottom: 72.0pt; margin-top: 72.0pt;">`
 
+不同的文档`width`是不一样的但是大部分都是 `592`,`595`;
+
+试情况而定,如果都不想要的话,都可以用正则表达式去掉;
+
 在进行转换成 pdf 文件就没有问题了,转换 pdf 时用的 itext7; 详细内容看代码;
 
 
