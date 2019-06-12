@@ -160,11 +160,15 @@ editor.on('keyup', function (e) {
 ```
 
 **使用方式:**
+
 1,添加字体
+
+方式一:
 
 将resources/font中的`msyh.ttf`字体加入到存放转换后pdf文件的文件夹下;和pdf文件同级即可;
 
 例如:我转换后的pdf文件放在了 `/tmp/pdf/`下,所以我的字体文件也要放在这个文件夹下;
+
 
 
 在`PdfService.java`文件中有两个方法:
