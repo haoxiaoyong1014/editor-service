@@ -169,9 +169,34 @@ editor.on('keyup', function (e) {
 
 例如:我转换后的pdf文件放在了 `/tmp/pdf/`下,所以我的字体文件也要放在这个文件夹下;
 
+方式二:
+
+把字体文件`msyh.ttf`放到resources目录下;
+
+在`PdfService`类中增加一个方法:
+
+```java
+ public void copyFont(String dirStr) {
+        try {
+            InputStream inputStream = PdfService.class.getClassLoader().getResourceAsStream("msyh.ttf");
+            File dir = new File(dirStr);
+            FileUtils.forceMkdir(dir);
+            FileOutputStream fout = new FileOutputStream(dirStr + "msyh.ttf");
+            if (inputStream != null && fout != null) {
+                IOUtils.copy(inputStream, fout);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+在 ItextHtmlToPdfController中要这么写:
+```java
 
 
-在`PdfService.java`文件中有两个方法:
+```
+
+在`PdfService`类中有两个方法:
 
 1, 根据html文件进行转换
 
