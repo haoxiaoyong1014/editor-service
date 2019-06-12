@@ -324,6 +324,45 @@ content = Pattern.compile("margin-right:\\d*[.]\\d*pt;").matcher(content).replac
 
 在进行转换成 pdf 文件就没有问题了,转换 pdf 时用的 itext7; 详细内容看代码;
 
+2019-06-12更新
 
+更新内容: 解决异常
 
+异常信息:
 
+```
+Caused by: java.lang.NullPointerException 
+at org.apache.poi.xwpf.converter.core.styles.run.RunUnderlineValueProvider.getValue(RunUnderlineValueProvider.java:40)
+```
+解决方法:
+
+创建一个package名为: `org.apache.poi.xwpf.converter.core.styles.run`;
+
+新建一个RunUnderlineValueProvider类,代码如下:
+
+```java
+public class RunUnderlineValueProvider extends AbstractRunValueProvider<UnderlinePatterns> {
+
+    public static final RunUnderlineValueProvider INSTANCE = new RunUnderlineValueProvider();
+
+    @Override
+    public UnderlinePatterns getValue(CTRPr rPr, XWPFStylesDocument stylesDocument) {
+
+        if (rPr == null) {
+            return null;
+        }
+        if (rPr.isSetU()) {
+            CTUnderline u = rPr.getU();
+            if (u != null) {
+                Enum val = u.getVal();
+                if (val != null) {
+                    return UnderlinePatterns.valueOf(val.intValue());
+                }
+            }
+        }
+        return null;
+    }
+}
+```
+
+这样系统会优先调用自己写的这个类;
