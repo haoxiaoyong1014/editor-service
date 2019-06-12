@@ -33,10 +33,5 @@ public class RunUnderlineValueProvider extends AbstractRunValueProvider<Underlin
             }
         }
         return null;
-
-        // old code
-//      return (rPr != null && rPr.isSetU())
-//              ? UnderlinePatterns.valueOf(rPr.getU().getVal().intValue()) : null;
-
     }
 }

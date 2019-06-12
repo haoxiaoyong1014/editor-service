@@ -192,9 +192,17 @@ editor.on('keyup', function (e) {
 ```
 在 ItextHtmlToPdfController中要这么写:
 ```java
-
-
+ PdfService pdfService = new PdfService();
+ String timeFile = System.currentTimeMillis() + "";
+ String tempFile = PdfService.RESOURCE_PREFIX_INDEX + "/" + "pdf" + "/";
+ createDirs(tempFile);
+ //添加字体
+ pdfService.copyFont(tempFile);
+ FileInputStream inputStream = new FileInputStream("/tmp/5.html");
+ File pdfFile = createFlawPdfFile(tempFile, timeFile);
+ pdfService.createPdfFromHtml(pdfFile.getName(), inputStream, tempFile);
 ```
+以下我是用的方式一
 
 在`PdfService`类中有两个方法:
 
