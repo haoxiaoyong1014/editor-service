@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * github:https://github.com/haoxiaoyong1014
  */
 @Configuration
-public class EditorConf extends WebMvcConfigurerAdapter{
+public class EditorConf extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -21,3 +21,4 @@ public class EditorConf extends WebMvcConfigurerAdapter{
     }
 
 }
+

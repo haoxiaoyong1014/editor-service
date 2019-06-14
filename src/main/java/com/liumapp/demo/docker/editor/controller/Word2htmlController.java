@@ -44,7 +44,7 @@ import org.w3c.dom.Document;
 @Controller
 @RequestMapping(value = "upload/word")
 public class Word2htmlController {
-    @Value("${word.to.html.path}")
+    @Value("${word.to.html.path}")// /tmp/docker/doc/
     private String path;
 
     @RequestMapping("/template")
