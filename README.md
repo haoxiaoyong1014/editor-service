@@ -367,9 +367,9 @@ public class RunUnderlineValueProvider extends AbstractRunValueProvider<Underlin
 
 这样系统会优先调用自己写的这个类;
 
-2019-06-14 更新
+2019-06-14 更新: 增加灵活设置pdf的页边距
 
-新增方法: 在`PdfService`中增加灵活设置 pdf的页边距
+在`PdfService`中新增方法: 
 
 ```java
     public static final float topMargin = 0f;
