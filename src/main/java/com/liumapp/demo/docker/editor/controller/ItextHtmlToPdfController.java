@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Haoxy on 2019-06-05.
@@ -29,6 +30,20 @@ public class ItextHtmlToPdfController {
         System.out.println(l2 - l1 + "ms 转换完成;" + " 文件名:" + pdfFile.getName());
         return pdfFile.getName();
     }
+
+    @RequestMapping(value = "pdf2")
+    public String converterTask2(@RequestBody Editor editor) throws IOException {
+        PdfService pdfService = new PdfService();
+        String tempFile = PdfService.RESOURCE_PREFIX_INDEX + "/" + "pdf" + "/";
+        createDirs(tempFile);
+        File pdfFile = createFlawPdfFile(tempFile, System.currentTimeMillis() + "-itext");
+        long l1 = System.currentTimeMillis();
+        pdfService.convertPageSpacing(pdfFile.getName(), editor.getContent(), tempFile);
+        long l2 = System.currentTimeMillis();
+        System.out.println(l2 - l1 + "ms 转换完成;" + " 文件名:" + pdfFile.getName());
+        return pdfFile.getName();
+    }
+
 
     /**
      * 新建文件夹
