@@ -366,3 +366,44 @@ public class RunUnderlineValueProvider extends AbstractRunValueProvider<Underlin
 ```
 
 这样系统会优先调用自己写的这个类;
+
+2019-06-14 更新
+
+新增方法: 在`PdfService`中增加灵活设置 pdf的页边距
+
+```java
+    public static final float topMargin = 0f;
+    public static final float bottomMargin = 0f;
+    public static final float leftMargin = 30f;
+    public static final float rightMargin = 30f;
+
+    public void convertPageSpacing(String pdfFileName,String html,String resourcePrefix) throws IOException {
+        //ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        FileOutputStream outputStream = new FileOutputStream(resourcePrefix + pdfFileName);
+        PdfWriter writer = new PdfWriter(outputStream);
+        PdfDocument pdfDocument = new PdfDocument(writer);
+        try {
+            ConverterProperties props = new ConverterProperties();
+            FontProvider fp = new FontProvider();
+            fp.addStandardPdfFonts();
+            fp.addDirectory(resourcePrefix);
+            /*ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            fp.addDirectory(classLoader.getResource("msyh.ttf").getPath());*/
+            props.setFontProvider(fp);
+            List<IElement> iElements = HtmlConverter.convertToElements(html, props);
+            Document document = new Document(pdfDocument, PageSize.A4, true); // immediateFlush设置true和false都可以，false 可以使用 relayout
+            document.setMargins(topMargin, rightMargin, bottomMargin, leftMargin);
+            for (IElement iElement : iElements) {
+                BlockElement blockElement = (BlockElement) iElement;
+                blockElement.setMargins(1, 0, 1, 0);
+                document.add(blockElement);
+            }
+            document.close();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            outputStream.close();
+        }
+    }
+```
+上面四个值(`topMargin`,`bottomMargin`,`leftMargin`,`rightMargin`)按需定义;
