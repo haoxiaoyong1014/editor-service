@@ -407,3 +407,8 @@ public class RunUnderlineValueProvider extends AbstractRunValueProvider<Underlin
     }
 ```
 上面四个值(`topMargin`,`bottomMargin`,`leftMargin`,`rightMargin`)按需定义;
+
+
+2019-06-18 更新
+
+添加`Html2PdfUtil`类,增加两个方法,分别为增加页眉和页脚;
