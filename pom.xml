@@ -67,7 +67,7 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
-      <version>1.2.15</version>
+      <version>1.2.25</version>
     </dependency>
 
     <!--以下是新增itext7html转pdf 更新于 2019-06-04 -->
